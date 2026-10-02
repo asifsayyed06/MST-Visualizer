@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MST Comparison Visualizer</title>
+<link rel="stylesheet" href="style.css"></head><body>
+<header><h1>🌲 Minimum Spanning Tree — Kruskal vs Prim</h1>
+<p>Build your own graph or generate a random one, then watch both algorithms solve it step by step.</p></header>
+<div class="bar">
+<button class="p" id="play">▶ Play</button><button id="step">Step</button><button id="fin">Skip to result</button><button id="rst">Reset</button><button id="new">New graph</button>
+<label>Nodes <input type="range" id="n" min="5" max="12" value="8"><span id="nv">8</span></label>
+<label>Speed <input type="range" id="sp" min="1" max="10" value="5"></label>
+</div>
+<div class="card"><h2>✏️ Graph builder</h2>
+<div class="msg" id="bh"></div>
+<div class="bar"><label>Edge weight <input type="number" id="ew" min="1" placeholder="auto"></label><button id="undo">Undo last edge</button><button id="clr">Clear graph</button></div>
+<svg id="bs" viewBox="0 0 500 320"></svg></div>
+<div class="lg"><span style="--c:var(--ok)">Added to MST</span><span style="--c:var(--bad)">Rejected (cycle)</span><span style="--c:var(--line)">Not yet examined</span></div>
+<div class="grid">
+<div class="card"><h2>Kruskal <span style="font-weight:400;color:var(--mu);font-size:13px">sort edges + union-find</span></h2><svg id="k" viewBox="0 0 500 320"></svg><div class="st" id="ks"></div><div class="pg"><i id="kpg"></i></div><div class="msg" id="km"></div></div>
+<div class="card"><h2>Prim <span style="font-weight:400;color:var(--mu);font-size:13px">grow from node 0</span></h2><svg id="p" viewBox="0 0 500 320"></svg><div class="st" id="ps"></div><div class="pg"><i id="ppg"></i></div><div class="msg" id="pm"></div></div>
+</div>
+<div class="card" id="resc"><h2>Result — best graph</h2><div id="resw" class="msg">Run both algorithms to the end (Play or “Skip to result”) to see the comparison.</div></div>
+<div class="card"><h2>⚖️ 5 key differences: Kruskal vs Prim</h2>
+<table class="df"><tr><th>#  Point</th><th>Kruskal</th><th>Prim</th></tr>
+<tr><td>1. Approach</td><td>Edge-based: picks the globally cheapest edge that does not form a cycle.</td><td>Vertex-based: grows one tree by the cheapest edge leaving it.</td></tr>
+<tr><td>2. Starting point</td><td>No start node; begins with all edges sorted by weight.</td><td>Starts from one chosen vertex (node 0 here).</td></tr>
+<tr><td>3. Data structure</td><td>Sorted edge list + Union-Find (disjoint sets).</td><td>Priority queue (min-heap) or adjacency matrix.</td></tr>
+<tr><td>4. Time complexity</td><td>O(E log E) = O(E log V).</td><td>O(E log V) with a heap; O(V²) with a matrix.</td></tr>
+<tr><td>5. Best for / behaviour</td><td>Sparse graphs; works on disconnected graphs (gives a forest); partial result is a forest.</td><td>Dense graphs; needs a connected graph; partial result is always one connected tree.</td></tr></table></div>
+<div class="card"><h2>💬 MST Assistant</h2>
+<div id="log"></div><div class="chips" id="chips"></div>
+<div class="in"><input id="q" placeholder="Ask anything about Minimum Spanning Trees…"><button class="p" id="send">Send</button></div></div>
+<script src="script.js"></script></body></html>
